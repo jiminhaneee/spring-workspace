@@ -181,6 +181,8 @@ public class MemberServiceImpl implements MemberService {
 		*/
 		
 		//-----------------------------------------------------------
+		// 코드 간단하게 바꾸기 3절
+		//-> 회원 검증에 대한 클래스를 따로 빼서 관리 (MemberValidator 생성)
 		
 		Member userInfo = mapper.login(member);
 		
@@ -213,7 +215,7 @@ public class MemberServiceImpl implements MemberService {
 		
 		//--------------------------------------------------------------
 		
-		validator.validateMemberExists(member);
+		validator.validateMemberExists(member); //member만 넘기면 DB에 없으면 예외 발생하고 있으면 업데이트되고 실행됨
 		
 		mapper.updateMember(member);
 	}
