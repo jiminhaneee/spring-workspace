@@ -68,8 +68,7 @@
 	<!-- DB와 연결하는것까지는 완료 : sql이 필요할때는 여기서 받아서 사용 -->
 	
 	<!-- 마이바티스 인터페이스 스캔 -->
-	<mybatis-spring:scan base-package="com.kh.hyper.member.model.dao"/>
-	
+	<mybatis-spring:scan base-package="com.kh.hyper.member.model.dao, com.kh.hyper.board.model.dao" />
 	
 	
 	<!-- 트랜잭션 매니저를 bean으로 등록/ 세팅 -->
@@ -79,7 +78,11 @@
 	
 	<tx:annotation-driven transaction-manager="transactionManager"/>
 	
-	
+	<!-- 파일 업로드 관련 Bean등록 -->
+	<bean class="org.springframework.web.multipart.commons.CommonsMultipartResolver" id="multipartResolver">
+		<property name = "maxUploadSize" value="100000000"></property>
+		<property name = "maxInMemorySize" value="100000000"></property>
+	</bean>
 	
 	
 </beans>

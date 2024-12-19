@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.hyper.exception.BoardNoValueException;
+import com.kh.hyper.exception.BoardNotFoundException;
 import com.kh.hyper.exception.ComparePasswordException;
 import com.kh.hyper.exception.TooLargeValueException;
 import com.kh.hyper.exception.UserFoundException;
@@ -25,6 +27,18 @@ public class ExceptionHandlingController {
 		return mv;
 	}
 	// 중복된 코드를 메소드 하나로 분리해서 사용
+	
+	@ExceptionHandler(BoardNotFoundException.class)
+	protected ModelAndView NoSuchBoardError(BoardNotFoundException e) {
+		return createErrorResponse("게시글이 존재하지 않습니다.", e);
+	}
+	
+	@ExceptionHandler(BoardNoValueException.class)
+	protected ModelAndView noValueError(BoardNoValueException e) {
+		return createErrorResponse("필수 입력사항을 모두 입력해주세요.", e);
+	}
+	
+	//-----------------------Member---------------------------------------
 	
 	@ExceptionHandler(DuplicateKeyException.class)
 	protected ModelAndView handelTransactionError(DuplicateKeyException e) {
