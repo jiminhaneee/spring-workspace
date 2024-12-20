@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.hyper.exception.BoardNoValueException;
 import com.kh.hyper.exception.BoardNotFoundException;
 import com.kh.hyper.exception.ComparePasswordException;
+import com.kh.hyper.exception.FailToFileUploadException;
+import com.kh.hyper.exception.InvalidParameterException;
 import com.kh.hyper.exception.TooLargeValueException;
 import com.kh.hyper.exception.UserFoundException;
 import com.kh.hyper.exception.UserIdNotFoundException;
@@ -36,6 +38,16 @@ public class ExceptionHandlingController {
 	@ExceptionHandler(BoardNoValueException.class)
 	protected ModelAndView noValueError(BoardNoValueException e) {
 		return createErrorResponse("필수 입력사항을 모두 입력해주세요.", e);
+	}
+	
+	@ExceptionHandler(FailToFileUploadException.class)
+	protected ModelAndView failtoFileupload(FailToFileUploadException e) {
+		return createErrorResponse("파일업로드에 실패하였습니다.", e);
+	}
+	
+	@ExceptionHandler(InvalidParameterException.class)
+	protected ModelAndView invalidParameterError(InvalidParameterException e) {
+		return createErrorResponse("장난꾸러기네",e);
 	}
 	
 	//-----------------------Member---------------------------------------

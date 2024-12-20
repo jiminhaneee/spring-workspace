@@ -92,14 +92,14 @@
                 <!-- 로그인 전 -->
                 <c:choose>
                 	<c:when test="${ empty sessionScope.loginUser }">
-		                <a href="enrollform.me">회원가입</a>
+		                <a href="/hyper/enrollform.me">회원가입</a>
 		                <a data-toggle="modal" data-target="#loginModal">로그인</a> <!-- 모달의 원리 : 이 버튼 클릭시 data-targer에 제시되어있는 해당 아이디의 div요소를 띄워줌 -->
 	                </c:when>
 	                <c:otherwise>
                 <!-- 로그인 후 -->
 	                    <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
-	                    <a href="mypage.me">마이페이지</a>
-	                    <a href="logout.me">로그아웃</a>
+	                    <a href="/hyper/mypage.me">마이페이지</a>
+	                    <a href="/hyper/logout.me">로그아웃</a>
                     </c:otherwise>
                 </c:choose>
             </div>
@@ -108,7 +108,7 @@
             <ul>
                 <li><a href="">HOME</a></li>
                 <li><a href="">공지사항</a></li>
-                <li><a href="boards">자유게시판</a></li>
+                <li><a href="/hyper/boards">자유게시판</a></li>
                 <li><a href="">사진게시판</a></li>
             </ul>
         </div>
@@ -124,7 +124,7 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
         
-                <form action="login.me" method="post">
+                <form action="/hyper/login.me" method="post">
                     <!-- Modal body -->
                     <div class="modal-body">
                         <label for="userId" class="mr-sm-2">ID : </label>

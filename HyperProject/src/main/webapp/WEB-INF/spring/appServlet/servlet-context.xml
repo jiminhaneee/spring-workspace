@@ -47,7 +47,13 @@
 	 		<mapping path="/insertForm/**"/>
 	 		<beans:bean class="com.kh.hyper.common.interceptor.LoginInterceptor" id="loginInceptor"/>
 	 	</interceptor>
+	 	<interceptor>
+	 		<mapping path="/boards/delete"/>
+	 		<beans:bean class="com.kh.hyper.common.interceptor.AuthorizationInterceptor" id="authorizationInterceptor"/>
+	 	</interceptor>
 	 </interceptors>
+	
+	
 	
 	
 	

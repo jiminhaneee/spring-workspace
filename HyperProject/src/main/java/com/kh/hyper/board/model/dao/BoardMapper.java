@@ -17,8 +17,11 @@ public interface BoardMapper {
 	// 목록 조회
 	List<Board> selectBoardList(RowBounds rowBounds);
 	
-	// 상세 조회
+	//조회수 증가
+	int increaseCount(Long boardNo); 
 	
+	// 상세 조회
+	Board selectById(Long boardNo);
 	
 	// 작성
 	void insertBoard(Board board);
@@ -26,7 +29,7 @@ public interface BoardMapper {
 	// 수정
 	
 	// 삭제
-	
+	int deleteBoard(Long boardNo);
 	
 	
 	

@@ -44,7 +44,7 @@ public class BoardController {
 		return "board/insert_form";
 	}
 	
-	@PostMapping("boards")
+	@PostMapping("boards")				//첨부파일이 여러개인 경우 Multipart[] 배열로 받으면 됨!
 	public ModelAndView save(Board board, MultipartFile upfile, HttpSession session) {
 		
 		//log.info("게시글 정보 :{}, 파일정보 : {}", board, upfile);
@@ -58,12 +58,28 @@ public class BoardController {
 		return mv.setViewNameAndData("redirect:boards", null);
 	}
 	
-	@GetMapping("boards/${id}")
-	public ModelAndView selectById(@PathVariable(name="id")Long id) {
-		log.info("{}", id);
+	@GetMapping("boards/{id}")
+	public ModelAndView selectById(@PathVariable(name="id")Long id) { //@PathVariable-> 위의 {id}값을 가지고 올 때 사용
+		//log.info("{}", id);
 		
-		return mv.setViewNameAndData(null, null);
+		Map<String, Object> responseData = boardService.selectById(id);
+		return mv.setViewNameAndData("board/detail", responseData);
 	}
+	
+	@PostMapping("boards/delete")
+	public ModelAndView deleteBoard(Long boardNo, String changeName) {
+		
+		boardService.deleteBoard(boardNo, changeName);
+		
+		return mv.setViewNameAndData("redirect:/boards", null); 
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 
 }
