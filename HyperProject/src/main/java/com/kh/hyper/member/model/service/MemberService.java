@@ -30,6 +30,7 @@ public interface MemberService {
 	void deleteMember(String userPwd, HttpSession session);
 	
 	// 아이디 중복 체크 
+	String checkId(String userId);
 	
 	// ------------- 2절
 	

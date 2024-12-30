@@ -15,7 +15,10 @@
   	</typeAliases>
   	
   	<!-- 
-  		environments, dataSource ==> DB연결정보
+  	
+  		이자리에 
+  		
+  		environments, dataSource ==> DB연결정보를 적어줘야하는데 여기서는 안하겠다!
   		
   		=> DB등록정보는 서버가 실행됨과 동시에 이루어져야 하는 작업 
   		서버 켜지면 바로 읽히는 root-context.xml에 기술할 예정

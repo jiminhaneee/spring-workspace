@@ -35,12 +35,62 @@
         <div class="innerOuter">
             <h2>회원가입</h2>
             <br>
+            
+            <script>
+            
+            $(function(){
+            	
+            	const $idInput = $('#enroll-form > #userId'); // input요소의 id값만 작성하면 불명확하므로 
+            	const $checkResult = $('#check-result');
+            	const $joinBtn = $('#join-btn');
+            	
+            	$idInput.keyup(function(){ 
+            		
+            		//console.log($idInput.val());
+            		
+            		if($idInput.val().length >= 5){//사용자가 입력한 글자가 5글자 이상일때만 
+            			
+            			$.ajax({
+            				
+            				url : 'idcheck',
+            				type : 'get',
+            				data : {
+            					userId : $idInput.val()
+            				},
+            				success : function(result){
+            					//console.log(result);
+            					
+            					if(result.substr(4) === 'N'){ // 중복이다
+            						
+            						$checkResult.show().css('color', 'crimson').text('사용할 수 없는 아이디입니다.');
+									$joinBtn.attr('disabled',true);            	
+									
+            					}else{
+            						// 중복 아니다
+            						$checkResult.show().css('color','lightgreen').text('멋진 아이디네요!');
+            						$joinBtn.removeAttr('disabled');
+            					}
+            				}
+            				
+            			});
+            			
+            		}
+            		
+            	});
+
+            });
+            
+            
+            
+            
+            </script>
 
             <form action="sign-up.me" method="post">
-                <div class="form-group">
+                <div class="form-group" id="enroll-form">
                     <label for="userId">* ID : </label>
                     <input type="text" class="form-control" id="userId" placeholder="Please Enter ID" name="userId" required> <br>
-
+                    <div id="check-result" style="font-size:0.7em; display:none;"></div>
+                    
                     <label for="userPwd">* Password : </label>
                     <input type="password" class="form-control" id="userPwd" placeholder="Please Enter Password" name="userPwd" required> <br>
 
@@ -70,7 +120,7 @@
                 </div> 
                 <br>
                 <div class="btns" align="center">
-                    <button type="submit" class="btn btn-primary">회원가입</button>
+                    <button type="submit" class="btn btn-primary disabled" id="join-btn">회원가입</button> <!-- disabled = submit 버튼 비활성화(클릭해도 안눌림) -->
                     <button type="reset" class="btn btn-danger">초기화</button>
                 </div>
             </form>

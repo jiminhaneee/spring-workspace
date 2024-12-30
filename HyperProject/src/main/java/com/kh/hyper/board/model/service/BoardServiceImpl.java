@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hyper.board.model.dao.BoardMapper;
 import com.kh.hyper.board.model.vo.Board;
+import com.kh.hyper.board.model.vo.Reply;
 import com.kh.hyper.common.model.vo.PageInfo;
 import com.kh.hyper.common.template.Pagination;
 import com.kh.hyper.exception.BoardNoValueException;
@@ -300,8 +301,32 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public void updateBoard(Board board) {
-
+	public Board updateBoard(Board board, MultipartFile upfile){
+		
+		validateBoardNo(board.getBoardNo());
+		findBoardById(board.getBoardNo());
+		
+		// 새 파일을 첨부했는지
+		if(!upfile.getOriginalFilename().equals("")) {
+		
+			if(board.getChangeName() != null) {
+				// 기존 첨부파일 존재했는지 체크 후 삭제
+				new File(context.getRealPath(board.getChangeName())).delete();
+			}
+			
+			handleFileUpload(board, upfile);
+		}
+		
+		
+		
+		int result = mapper.updateBoard(board);
+		
+		if(result < 1) {
+			throw new BoardNotFoundException("게시물 업데이트 실패하셨습니다.");
+			
+		}
+		return mapper.selectById(board.getBoardNo());
+		
 	}
 
 	@Override
@@ -332,6 +357,19 @@ public class BoardServiceImpl implements BoardService {
 		}
 		
 		
+	}
+
+
+	@Override
+	public int insertReply(Reply reply) {
+		
+		return mapper.insertReply(reply);
+	}
+
+
+	@Override
+	public List<Reply> selectReplyList(Long  boardNo) {
+		return mapper.selectReplyList(boardNo);
 	}
 
 }

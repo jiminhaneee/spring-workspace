@@ -2,15 +2,11 @@ package com.kh.hyper.member.model.service;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.hyper.exception.ComparePasswordException;
-import com.kh.hyper.exception.TooLargeValueException;
-import com.kh.hyper.exception.UserFoundException;
-import com.kh.hyper.exception.UserIdNotFoundException;
 import com.kh.hyper.member.model.dao.MemberMapper;
 import com.kh.hyper.member.model.vo.Member;
 
@@ -259,6 +255,13 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	
+	
+	@Override
+	public String checkId(String userId) {
+		
+		
+		return mapper.checkId(userId)>0 ? "NNNNN" : "NNNNY";
+	}
 	
 	
 	

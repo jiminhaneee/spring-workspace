@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.hyper.common.ModelAndViewUtil;
@@ -480,7 +481,24 @@ public class MemberController {
 	}
 	
 	
+	//------------------------------------------------------------
 	
+	// 아이디 중복 체크 AJAX
+	@ResponseBody
+	@GetMapping("idcheck")
+	public String checkId(String userId) {
+		
+		//String result = memberService.checkId(userId);
+		//log.info("아이디 중복이 발생했는가 :{}", result);
+		
+		return memberService.checkId(userId); // 한번에 돌려주기
+	}
+	
+	
+	
+	
+	
+	//---------------------------------------------------------------------
 	
 	private ModelAndView setViewNameAndData(String viewName, String key, Object data) {
 		ModelAndView mv = new ModelAndView();

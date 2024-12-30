@@ -21,4 +21,6 @@ public interface MemberMapper {
 	
 	int test();
 
+	int checkId(String userId);
+
 }

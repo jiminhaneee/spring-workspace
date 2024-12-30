@@ -109,4 +109,18 @@
 	</insert><!-- 이미 sql에서 insert했기때문에 이렇게 작성하면 unique조건 위배 -->
 
 
+	<!-- 아아디 중복체크용 쿼리문 -->
+	<select id="checkId" resultType="_int" >
+		SELECT
+				COUNT(*)
+		 FROM
+		 		MEMBER
+		 WHERE
+		 		USER_ID = #{userId}
+		   AND 
+		   		STATUS = 'Y'
+	</select>
+
+
+
 </mapper>

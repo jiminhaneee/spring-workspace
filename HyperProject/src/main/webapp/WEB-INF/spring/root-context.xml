@@ -51,8 +51,7 @@
 	<!-- 3단계. SQL구문 실행을 위한 템플릿을 등록하는 도구 등록 -->
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
 		<!-- 매개변수 생성자 참조 설정 -->
-		<constructor-arg ref="sqlSessionFactory"></constructor-arg>
-		 
+		<constructor-arg ref="sqlSessionFactory"></constructor-arg> 
 	</bean>
 	<!-- 
 		SqlSessionTemplate sqlSession = new SqlSessionTemplate(sqlSessionFactory); 

@@ -4,8 +4,10 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.hyper.board.model.vo.Board;
+import com.kh.hyper.board.model.vo.Reply;
 
 @Mapper
 public interface BoardMapper {
@@ -27,15 +29,19 @@ public interface BoardMapper {
 	void insertBoard(Board board);
 	
 	// 수정
+	int updateBoard(Board board);
 	
 	// 삭제
 	int deleteBoard(Long boardNo);
-	
-	
+
+	// 댓글 작성
+	int insertReply(Reply reply);
 	
 	// 댓글 목록 조회
+	List<Reply> selectReplyList(Long boardNo);
 	
-	// 댓글 작성
+	
+	
 	
 
 }
