@@ -236,7 +236,6 @@ public class MemberController {
 	 * 
 	 * Model객체와 View가 결합된 형태의 객체
 	 * 
-	 *  -> 값을 
 	 * 
 	 */
 	@PostMapping("login.me")
@@ -259,8 +258,8 @@ public class MemberController {
 	
 		
 		
-		log.info("{}" , member);
-		log.info("{}" , loginMember);
+		//log.info("{}" , member);
+		//log.info("{}" , loginMember);
 		
 		
 		
@@ -421,7 +420,11 @@ public class MemberController {
 		
 		
 		//-------------------------------------------------
-		session.setAttribute("loginUser", memberService.login(member)); //요청 처리
+		
+		log.info("{}", member);
+		
+		//session.setAttribute("loginUser", memberService.login(member)); //요청 처리 -ji
+		memberService.updateMember(member, session);
 		session.setAttribute("alertMsg", "정보수정에 성공했습니다.");
 		//mv.setViewName("redirect:mypage.me"); // 응답지정
 
@@ -441,16 +444,19 @@ public class MemberController {
 								) {
 		
 		//userPwd : 회원 탈퇴 시 요청 시 사용자가 입력한 비밀번호 평문
-		// session의 loginUser객체의 userPwd필드 : DB에 기록된 암호화된 비밀번호
+		// session의 loginUser객체의 userPwd필드 : DB에 기록된 암호화된 비밀번호 -> session에서 뽑아야하므로 HttpSession이 필요
+		
 		
 		
 		/*
 		Member loginUser = ((Member)session.getAttribute("loginUser"));
 		
-		String encPwd = loginUser.getUserPwd();
+		String encPwd = loginUser.getUserPwd(); //-> 암호화된 비밀번호를 받기
 		
-		if(passwordEncoder.matches(userPwd, encPwd)) {
+		if(passwordEncoder.matches(userPwd, encPwd)) {//-> 두개를 비교해서 true가 나오면 사용자가 올바르게 입력한 것 
 			//비밀번호가 사용자가 입력한 평문을 이용해서 만든 비밀번호일 경우
+			 
+			 // 일치했으면 탈퇴할 수 있게 해야하므로 -> service로 보냄 -> 다녀오면 update되어서 오는 것이니간 제대로 되었다면 0보다 클 것 
 			if(memberService.deleteMember(loginUser, session) > 0) {
 				
 				session.removeAttribute("loginUser");
@@ -458,11 +464,11 @@ public class MemberController {
 				return "redirect:/";
 				
 				
-			}else {
+			}else { //탈퇴가 제대로 완료되지 않은 경우 
 				session.setAttribute("alertMsg", "관리자에게 문의하세요");
 				return "common/errorPage";
 			}
-		}else {
+		}else {//true가 아니면 비밀번호를 틀리게 작성한 것 
 			session.setAttribute("alertMsg", "비밀번호가 일치하지 않습니다.");
 			return "redirect:mypage.me";
 		}

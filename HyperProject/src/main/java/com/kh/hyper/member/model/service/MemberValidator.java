@@ -43,10 +43,10 @@ public class MemberValidator {
 	
 	public Member validateMemberExists(Member member) {
 		Member existingMember = mapper.login(member);
-		if(existingMember != null) {
-			return existingMember;
+		if(existingMember != null) {//있는 회원인 경우
+			return existingMember;//회원의 정보 반환
 		}
-		throw new UserIdNotFoundException("존재하지 않는 사용자입니다.");
+		throw new UserIdNotFoundException("존재하지 않는 사용자입니다.");//없는 회원인경우 예외발생시켜서 더이상 작업 못하게하고 에러페이지로 포워딩시키기
 	}
 
 }

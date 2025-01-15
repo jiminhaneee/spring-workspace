@@ -93,7 +93,7 @@
 	  		STATUS = 'Y',
 	  		MODIFY_DATE = SYSDATE
 	 WHERE
-	 		USER_ID = #{userId}
+	 		USER_ID = #{userId} 
 	</update>
 	
 	<!-- 다중 트랜잭션 용 INSERT구문 -->

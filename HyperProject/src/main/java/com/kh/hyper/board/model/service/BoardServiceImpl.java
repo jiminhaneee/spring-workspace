@@ -317,8 +317,6 @@ public class BoardServiceImpl implements BoardService {
 			handleFileUpload(board, upfile);
 		}
 		
-		
-		
 		int result = mapper.updateBoard(board);
 		
 		if(result < 1) {

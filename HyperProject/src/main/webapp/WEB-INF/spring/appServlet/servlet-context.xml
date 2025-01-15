@@ -41,11 +41,12 @@
 	 
 	 
 	 <!-- 권한 체크 -->
+	 <!-- 하나의 interceptor은 하나의 태그를 사용해서 작성  -->
 	 <interceptors>
-	 	<interceptor>
+	 	<interceptor> 
 	 		<mapping path="/mypage.me/**"/>
 	 		<mapping path="/insertForm/**"/>
-	 		<beans:bean class="com.kh.hyper.common.interceptor.LoginInterceptor" id="loginInceptor"/>
+	 		<beans:bean class="com.kh.hyper.common.interceptor.LoginInterceptor" id="loginInceptor"/> <!-- 위에 매핑을 갈려고 할때 이 interceptor클래스가 쏙 가로챌것이다! -->
 	 	</interceptor>
 	 	<interceptor>
 	 		<mapping path="/boards/delete"/>

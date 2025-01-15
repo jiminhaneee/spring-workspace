@@ -192,7 +192,7 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	@Override
-	public void updateMember(Member member) {
+	public void updateMember(Member member, HttpSession session) {
 		/*
 		// 새션도 같이 받아서 앞단에서 넘어온 userId와 session의 loginUSer키값의 userId필드값이 동일한지 확인
 		//-> 사용자가 입력한 userId값이 DB컬럼에 존재하는지 
@@ -214,6 +214,9 @@ public class MemberServiceImpl implements MemberService {
 		validator.validateMemberExists(member); //member만 넘기면 DB에 없으면 예외 발생하고 있으면 업데이트되고 실행됨
 		
 		mapper.updateMember(member);
+		
+		session.setAttribute("loginUser", mapper.login(member));
+		
 	}
 	
 	
@@ -233,25 +236,31 @@ public class MemberServiceImpl implements MemberService {
 			throw new UserIdNotFoundException("존재하지 않는 사용자입니다.");
 		}
 		
-		if(passwordEncoder.matches(loginUser.getUserPwd(), userInfo.getUserPwd())) {
+		if(!!! passwordEncoder.matches(loginUser.getUserPwd(), userInfo.getUserPwd())) {
 			throw new ComparePasswordException("비밀번호가 일치하지 않습니다.");
 		}
-		
+		 
 		mapper.deleteMember(userInfo);
 		//return 0;
 		*/
 		//-------------------------------------------------------------
 		
+		
 		Member loginUser = (Member)session.getAttribute("loginUser");
+		
 		loginUser.setUserPwd(userPwd);
 		
 		Member userInfo = validator.validateMemberExists(loginUser);
+		
 		
 		if(passwordEncoder.matches(loginUser.getUserPwd(), userInfo.getUserPwd())) {
 			throw new ComparePasswordException("비밀번호가 일치하지 않습니다.");
 		}
 		
 		mapper.deleteMember(userInfo);
+		
+		
+		
 	}
 	
 	

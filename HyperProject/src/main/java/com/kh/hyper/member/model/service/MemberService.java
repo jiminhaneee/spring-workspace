@@ -25,7 +25,7 @@ public interface MemberService {
 	
 	void join(Member member);
 	
-	void updateMember(Member member);
+	void updateMember(Member member, HttpSession session);
 	
 	void deleteMember(String userPwd, HttpSession session);
 	
